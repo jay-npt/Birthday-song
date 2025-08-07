@@ -32,6 +32,114 @@
             justify-content: center;
             align-items: center;
             gap: 9px;
+            position: relative;
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .logo-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            position: relative;
+            animation: glow 3s infinite alternate;
+        }
+
+        .logo-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+            }
+            25% {
+                box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+            }
+            50% {
+                box-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00, 0 0 30px #ffff00;
+            }
+            75% {
+                box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+            }
+            100% {
+                box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+            }
+        }
+
+        .open-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff0000, #00ff00);
+            background-size: 400% 400%;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            animation: gradientBG 5s ease infinite, pulse 2s infinite;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         .title {
@@ -260,65 +368,143 @@
 </head>
 
 <body>
-    <div class="title" style="text-align: center;">
-        🎈 ʜᴀᴘᴘʏ 🎁birthday🎉
-    </div>
-
-    <div class="cube">
-        <div class="outer-cube">
-            <div class="outer-top">
-                <img src="https://i.ibb.co/KvHfpFK/IMG-20250806-214825-414.jpg" />
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <div class="logo-container">
+                <video class="logo-video" autoplay loop playsinline muted id="logoVideo">
+                    <source src="https://jay-npt.github.io/Birthday-song/VID_20250801_135226_875.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
-            <div class="outer-bottom">
-                <img src="https://i.ibb.co/DPCW6dKF/IMG-20250806-214820-763.jpg" />
-            </div>
-            <div class="outer-front">
-                <video src="https://jay-npt.github.io/Birthday-song/VID_20250801_135226_875.mp4" autoplay muted loop playsinline></video>
-            </div>
-            <div class="outer-back">
-                <img src="https://i.ibb.co/YBSFF4yQ/IMG-20250806-214813-367.jpg" />
-            </div>
-            <div class="outer-left">
-                <img src="https://i.ibb.co/ZpYwLbsz/IMG-20250806-214758-143.jpg" />
-            </div>
-            <div class="outer-right">
-                <img src="https://i.ibb.co/xKBHYcwZ/IMG-20250806-214742-712.jpg" />
-            </div>
-        </div>
-
-        <div class="inner-cube">
-            <div class="inner-top">
-                <img src="https://i.ibb.co/R4snbb9S/IMG-20250806-214721-492.jpg" />
-            </div>
-            <div class="inner-bottom">
-                <img src="https://i.ibb.co/Z7kvWzj/IMG-20250806-214702-203.jpg" />
-            </div>
-            <div class="inner-front">
-                <img src="https://i.ibb.co/9H3hFdZ1/IMG-20250806-214653-118.jpg" />
-            </div>
-            <div class="inner-back">
-                <img src="https://i.ibb.co/NgVtW3vQ/IMG-20250807-075114-866.jpg" />
-            </div>
-            <div class="inner-left">
-                <img src="https://i.ibb.co/qYqNfJvk/1000009714.jpg" />
-            </div>
-            <div class="inner-right">
-                <img src="https://i.ibb.co/HR6sY9g/1000009715.jpg" />
-            </div>
+            <button class="open-btn" id="openBtn">OPEN</button>
         </div>
     </div>
 
-    <div>
-        <div class="message">
-            <div class="tip">
-                <!-- Tip: Move the mouse in and out of the cube and the effect will be displayed! -->
+    <!-- Main Content -->
+    <div class="main-content hidden" id="mainContent">
+        <div class="title" style="text-align: center;">
+            🎈 ʜᴀᴘᴘʏ 🎁birthday🎉
+        </div>
+
+        <div class="cube">
+            <div class="outer-cube">
+                <div class="outer-top">
+                    <img src="https://i.ibb.co/KvHfpFK/IMG-20250806-214825-414.jpg" />
+                </div>
+                <div class="outer-bottom">
+                    <img src="https://i.ibb.co/DPCW6dKF/IMG-20250806-214820-763.jpg" />
+                </div>
+                <div class="outer-front">
+                    <video id="cubeVideo" autoplay loop playsinline>
+                        <source src="https://jay-npt.github.io/Birthday-song/VID_20250801_135226_875.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="outer-back">
+                    <img src="https://i.ibb.co/YBSFF4yQ/IMG-20250806-214813-367.jpg" />
+                </div>
+                <div class="outer-left">
+                    <img src="https://i.ibb.co/ZpYwLbsz/IMG-20250806-214758-143.jpg" />
+                </div>
+                <div class="outer-right">
+                    <img src="https://i.ibb.co/xKBHYcwZ/IMG-20250806-214742-712.jpg" />
+                </div>
             </div>
+
+            <div class="inner-cube">
+                <div class="inner-top">
+                    <img src="https://i.ibb.co/R4snbb9S/IMG-20250806-214721-492.jpg" />
+                </div>
+                <div class="inner-bottom">
+                    <img src="https://i.ibb.co/Z7kvWzj/IMG-20250806-214702-203.jpg" />
+                </div>
+                <div class="inner-front">
+                    <img src="https://i.ibb.co/9H3hFdZ1/IMG-20250806-214653-118.jpg" />
+                </div>
+                <div class="inner-back">
+                    <img src="https://i.ibb.co/NgVtW3vQ/IMG-20250807-075114-866.jpg" />
+                </div>
+                <div class="inner-left">
+                    <img src="https://i.ibb.co/qYqNfJvk/1000009714.jpg" />
+                </div>
+                <div class="inner-right">
+                    <img src="https://i.ibb.co/HR6sY9g/1000009715.jpg" />
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="message">
+                <div class="tip">
+                    <!-- Tip: Move the mouse in and out of the cube and the effect will be displayed! -->
+                </div>
+            </div>
+        </div>
+
+        <div id="copy">
+            <p class="text-center text-white text-sm">DarkNPT <a href="https://www.instagram.com/dark_npt">@m.ning_____jay</a></p>
         </div>
     </div>
 
-    <div id="copy">
-        <p class="text-center text-white text-sm">DarkNPT <a href="https://www.instagram.com/dark_npt">@m.ning_____jay</a></p>
-    </div>
+<audio id="birthdayAudio" src="bg.m4a" loop></audio>
+
+<script>
+    const audio = document.getElementById('birthdayAudio');
+    audio.volume = 0.5; // Volume between 0.0 (mute) to 1.0 (full)
+    audio.play();
+</script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.getElementById('popup');
+            const openBtn = document.getElementById('openBtn');
+            const mainContent = document.getElementById('mainContent');
+            const audio = document.getElementById('birthdayAudio');
+            const logoVideo = document.getElementById('logoVideo');
+            const cubeVideo = document.getElementById('cubeVideo');
+            
+            // Show popup immediately when page loads
+            popup.classList.remove('hidden');
+            
+            // Try to play logo video (muted)
+            logoVideo.play().catch(e => console.log("Logo video play prevented: ", e));
+            
+            openBtn.addEventListener('click', function() {
+                // Hide popup
+                popup.classList.add('hidden');
+                
+                // Show main content
+                mainContent.classList.remove('hidden');
+                
+                // Play audio
+                audio.play().catch(e => {
+                    console.log("Audio play prevented: ", e);
+                    // If audio is blocked, show a mute button or instructions
+                });
+                
+                // Play cube video with sound
+                cubeVideo.muted = false;
+                cubeVideo.play().catch(e => {
+                    console.log("Cube video play prevented: ", e);
+                    // Fallback: try again after user interaction
+                    cubeVideo.muted = true;
+                    cubeVideo.play().then(() => {
+                        cubeVideo.muted = false;
+                    });
+                });
+                
+                // Unmute logo video
+                logoVideo.muted =true;
+            });
+            
+            // Additional play attempt when user interacts with page
+            document.addEventListener('click', function() {
+                audio.play().catch(e => console.log("Audio play on click prevented: ", e));
+                cubeVideo.play().catch(e => console.log("Cube video play on click prevented: ", e));
+            }, { once: true });
+        });
+    </script>
 </body>
 
 </html>
